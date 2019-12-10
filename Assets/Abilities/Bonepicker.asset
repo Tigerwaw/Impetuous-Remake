@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef7fbd12f3ab62347a7b2f5f2a8bcb7b, type: 3}
+  m_Name: Bonepicker
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: b6d6e60359c2048428623032a44ea13f, type: 3}
+  name: Bonepicker
+  description: Deals 5 damage and strips the enemy of 1 armor for 4 seconds.
+  abilityType: 1
+  maxLevel: 4
+  manaCosts: 14000000190000001e00000023000000
+  cooldowns: 08000000060000000400000002000000
+  damage: 5
+  appliesDebuff: 1
+  debuffType: 4
+  debuffAmount: 1
+  debuffDuration: 4
+  particle_effect: {fileID: 0}
+  sound_effect: {fileID: 0}
