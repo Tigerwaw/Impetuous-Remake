@@ -67,12 +67,14 @@
     <Compile Include="Assets\Scripts\Camp.cs" />
     <Compile Include="Assets\Scripts\CampSelection.cs" />
     <Compile Include="Assets\Scripts\CharacterCombat.cs" />
+    <Compile Include="Assets\Scripts\EnemyHealthUI.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HealthUI.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\ManaRegeneration.cs" />
     <Compile Include="Assets\Scripts\NextRoomArrow.cs" />
     <Compile Include="Assets\Scripts\PlayerAbilities.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealthUI.cs" />
     <Compile Include="Assets\Scripts\RoomManager.cs" />
     <Compile Include="Assets\Scripts\Stats\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\Stats\EnemyStats.cs" />

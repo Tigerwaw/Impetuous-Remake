@@ -46,4 +46,11 @@ public class PlayerStats : CharacterStats
   {
     gold += _gold;
   }
+
+  public override void Die()
+  {
+    base.Die();
+
+    GameManager.instance.RestartGame();
+  }
 }

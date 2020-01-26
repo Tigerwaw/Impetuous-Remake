@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5062938170256206654}
   - component: {fileID: 8954248002871118963}
   - component: {fileID: 2173905121508381740}
-  - component: {fileID: 5566594161922203626}
+  - component: {fileID: 5275471695598481814}
   - component: {fileID: 7661814686487534351}
   - component: {fileID: 5468266186834080774}
   - component: {fileID: 5687214104351113307}
@@ -72,7 +72,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5566594161922203626
+--- !u!114 &5275471695598481814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,12 +81,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1454924340605789244}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9c150b5f6a4d4f4ca2963e73b00de3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 513cfbe101020a64d897ed6a81c4ef77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUIOffset: 3
   hpLost_FreezeTime: 1.5
   hpLost_VanishRate: 0.4
+  ui: {fileID: 0}
+  dmgNrPrefab: {fileID: 0}
+  healthLostSlider: {fileID: 0}
+  healthSlider: {fileID: 0}
+  stats: {fileID: 0}
+  healthUIOffset: 3
+  uiPrefab: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!114 &7661814686487534351
 MonoBehaviour:
   m_ObjectHideFlags: 0

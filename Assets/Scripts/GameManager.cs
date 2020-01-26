@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
   public GameObject dmgNr_Prefab;
 
   public GameObject combatUI;
+  public GameObject playerHealthUI;
   public GameObject levelUpUI;
   public Slider manaBar_UI;
 
@@ -27,7 +28,6 @@ public class GameManager : MonoBehaviour
 
   void Awake()
   {
-    DontDestroyOnLoad(gameObject);
     //Check if instance already exists
     if (instance == null)
     {
@@ -54,6 +54,12 @@ public class GameManager : MonoBehaviour
   public void ShowLevelUpScreen()
   {
     levelUpUI.SetActive(true);
+  }
+
+  public void RestartGame()
+  {
+    SceneManager.UnloadSceneAsync(currentSceneIndex);
+    SceneManager.LoadScene(0);
   }
 
   public void LoadNewRoom()
