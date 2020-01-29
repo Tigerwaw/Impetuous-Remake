@@ -15,10 +15,14 @@ public class TriggerAbility : MonoBehaviour
   {
     switch (_ability.abilityType)
     {
+      case AbilityType.Selfbuff:
+        Selfbuff(_ability, _myStats);
+        break;
       case AbilityType.Targeted:
         Targeted(_ability, _targetStats);
         break;
       case AbilityType.AOE:
+        AOE(_ability, _targetStats);
         break;
     }
   }
@@ -29,7 +33,6 @@ public class TriggerAbility : MonoBehaviour
 
     if (_ability.appliesDebuff)
     {
-
       switch (_ability.debuffType)
       {
         case DebuffType.Armor:
@@ -62,6 +65,54 @@ public class TriggerAbility : MonoBehaviour
     }
   }
 
+  public void Selfbuff(Ability _ability, CharacterStats _playerStats)
+  {
+    _playerStats.Heal(_ability.damage);
+
+    if (_ability.appliesDebuff)
+    {
+      switch (_ability.debuffType)
+      {
+        case DebuffType.Armor:
+          _playerStats.armor += _ability.debuffAmount;
+          Debug.Log(_playerStats.gameObject.name + " just gained " + _ability.debuffAmount + " armor!");
+          break;
+
+        case DebuffType.AttackSpeed:
+          _playerStats.attackSpeed += _ability.debuffAmount;
+          Debug.Log(_playerStats.gameObject.name + " just gained " + _ability.debuffAmount + " attack speed!");
+          break;
+
+        case DebuffType.Damage:
+          _playerStats.damage += _ability.debuffAmount;
+          Debug.Log(_playerStats.gameObject.name + " just gained " + _ability.debuffAmount + " damage!");
+          break;
+
+        case DebuffType.ManaRegen:
+          _playerStats.manaRegen += _ability.debuffAmount;
+          Debug.Log(_playerStats.gameObject.name + " just gained " + _ability.debuffAmount + " mana regen!");
+          break;
+
+        case DebuffType.MaxHealth:
+          _playerStats.maxHealth += _ability.debuffAmount;
+          Debug.Log(_playerStats.gameObject.name + " just gained " + _ability.debuffAmount + " max health!");
+          break;
+      }
+
+      StartCoroutine(RemoveBuffedStats(_playerStats, _ability.debuffType, _ability.debuffAmount, _ability.debuffDuration));
+    }
+  }
+
+  public void AOE(Ability _ability, CharacterStats _targetStats)
+  {
+    EnemyStats _enemyStats = _targetStats.GetComponent<EnemyStats>();
+
+    for (int i = 0; i < _enemyStats.camp.enemies.Count; i++)
+    {
+      Targeted(_ability, _enemyStats.camp.enemies[i].GetComponent<CharacterStats>());
+    }
+  }
+
   IEnumerator ReturnStats(CharacterStats _targetStats, DebuffType _debuffType, int _debuffAmount, float _duration)
   {
     yield return new WaitForSeconds(_duration);
@@ -91,6 +142,39 @@ public class TriggerAbility : MonoBehaviour
       case DebuffType.MaxHealth:
         _targetStats.maxHealth += _debuffAmount;
         Debug.Log(_targetStats.gameObject.name + " regained " + _debuffAmount + " max health!");
+        break;
+    }
+  }
+
+  IEnumerator RemoveBuffedStats(CharacterStats _playerStats, DebuffType _debuffType, int _buffAmount, float _duration)
+  {
+    yield return new WaitForSeconds(_duration);
+
+    // Checks if player is dead before returning the stats to it.
+    if (_playerStats == null)
+      yield break;
+
+    switch (_debuffType)
+    {
+      case DebuffType.Armor:
+        _playerStats.armor -= _buffAmount;
+        Debug.Log(_playerStats.gameObject.name + " lost " + _buffAmount + " armor!");
+        break;
+      case DebuffType.AttackSpeed:
+        _playerStats.attackSpeed -= _buffAmount;
+        Debug.Log(_playerStats.gameObject.name + " lost " + _buffAmount + " attack speed!");
+        break;
+      case DebuffType.Damage:
+        _playerStats.damage -= _buffAmount;
+        Debug.Log(_playerStats.gameObject.name + " lost " + _buffAmount + " damage!");
+        break;
+      case DebuffType.ManaRegen:
+        _playerStats.manaRegen -= _buffAmount;
+        Debug.Log(_playerStats.gameObject.name + " lost " + _buffAmount + " mana regen!");
+        break;
+      case DebuffType.MaxHealth:
+        _playerStats.maxHealth -= _buffAmount;
+        Debug.Log(_playerStats.gameObject.name + " lost " + _buffAmount + " max health!");
         break;
     }
   }

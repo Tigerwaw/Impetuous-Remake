@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\EnemyHealthUI.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HealthUI.cs" />
+    <Compile Include="Assets\Scripts\LevelUpPrompt.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\ManaRegeneration.cs" />
     <Compile Include="Assets\Scripts\NextRoomArrow.cs" />

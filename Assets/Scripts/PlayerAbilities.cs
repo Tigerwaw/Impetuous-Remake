@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAbilities : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PlayerAbilities : MonoBehaviour
   public Ability[] abilities;
   public int[] ability_level;
   public float[] ability_currentCD;
+  public Text[] ability_cdTexts;
+  public GameObject[] ability_greyOuts;
+  public RawImage[] ability_Icons;
 
   private void Start()
   {
@@ -22,6 +26,9 @@ public class PlayerAbilities : MonoBehaviour
     {
       ability_level[i] = 0;
       ability_currentCD[i] = 0;
+      ability_greyOuts[i].SetActive(true);
+      ability_cdTexts[i].gameObject.SetActive(false);
+      ability_Icons[i].texture = abilities[i].icon;
     }
   }
 
@@ -71,6 +78,7 @@ public class PlayerAbilities : MonoBehaviour
   {
     ability_level[_ability_ID] += 1;
     playerStats.skill_points -= 1;
+    ability_greyOuts[_ability_ID].SetActive(false);
 
     GameManager.instance.levelUpUI.SetActive(false);
 
@@ -89,6 +97,21 @@ public class PlayerAbilities : MonoBehaviour
     for (int i = 0; i < 3; i++)
     {
       ability_currentCD[i] -= Time.deltaTime;
+      if (ability_currentCD[i] > 0)
+      {
+        ability_greyOuts[i].SetActive(true);
+        ability_cdTexts[i].gameObject.SetActive(true);
+        ability_cdTexts[i].text = ability_currentCD[i].ToString("0");
+      }
+      else
+      {
+        ability_cdTexts[i].gameObject.SetActive(false);
+        
+        if (ability_level[i] > 0)
+        {
+          ability_greyOuts[i].SetActive(false);
+        }
+      }
     }
   }
 }
