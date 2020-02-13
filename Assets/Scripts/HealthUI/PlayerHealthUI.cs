@@ -15,5 +15,8 @@ public class PlayerHealthUI : HealthUI
     ui = playerHealth_ui.transform;
     healthLostSlider = ui.GetChild(1).GetComponent<Slider>();
     healthSlider = ui.GetChild(2).GetComponent<Slider>();
+    currentHealthText = playerHealth_ui.GetComponentInChildren<Text>();
+
+    currentHealthText.text = stats.currentHealth.ToString();
   }
 }

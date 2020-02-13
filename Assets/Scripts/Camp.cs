@@ -52,11 +52,22 @@ public class Camp : MonoBehaviour
     }
   }
 
-  //Makes the player attack a random target within the camp.
+  //Makes the player attack another target within the camp.
   public void SwitchTarget()
   {
-    //Randomize players target.
     int _randTarget = Random.Range(0, enemies.Count);
+
+    //Randomize players target.
+    while (enemies[_randTarget].GetComponent<CharacterStats>() == GameManager.instance.playerCombat.opponentStats)
+    {
+      _randTarget = Random.Range(0, enemies.Count);
+
+      if (enemies.Count < 2)
+      {
+        break;
+      }
+    }
+
     GameManager.instance.playerCombat.Attack(enemies[_randTarget].GetComponent<CharacterStats>());
   }
 

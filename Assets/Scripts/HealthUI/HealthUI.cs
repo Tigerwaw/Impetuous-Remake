@@ -9,8 +9,10 @@ public class HealthUI : MonoBehaviour
   public float hpLost_FreezeTime;
   public float hpLost_VanishRate;
 
+  [HideInInspector] public Text currentHealthText;
   [HideInInspector] public Transform ui;
   [HideInInspector] public GameObject dmgNrPrefab;
+  [HideInInspector] public GameObject healNrPrefab;
   [HideInInspector] public Slider healthLostSlider;
   [HideInInspector] public Slider healthSlider;
   [HideInInspector] public CharacterStats stats;
@@ -23,9 +25,10 @@ public class HealthUI : MonoBehaviour
   {
     stats = GetComponent<CharacterStats>();
     dmgNrPrefab = GameManager.instance.dmgNr_Prefab;
+    healNrPrefab = GameManager.instance.healNr_Prefab;
   }
 
-  public void OnHealthChanged(int maxHealth, int currentHealth, int healthLost)
+  public void OnHealthChanged(float maxHealth, float currentHealth, float healthChanged, bool heal)
   {
     if (ui == null)
     {
@@ -38,27 +41,38 @@ public class HealthUI : MonoBehaviour
       Destroy(ui.gameObject);
     }
 
-    float healthPercent = (float)currentHealth / maxHealth;
+    float healthPercent = currentHealth / maxHealth;
     healthSlider.value = healthPercent;
 
-    float previousHealth = currentHealth + healthLost;
+    currentHealthText.text = currentHealth.ToString();
+
+    if (!heal)
+    {
+      HealthLost(maxHealth, currentHealth, healthChanged);
+    }
+  }
+
+  public void HealthLost(float maxHealth, float currentHealth, float healthChanged)
+  {
+    float previousHealth = currentHealth + healthChanged;
     float previousHealthPercent = (float)previousHealth / maxHealth;
     healthLostSlider.value = previousHealthPercent;
 
     wasHealthLost = true;
   }
 
-  public void UpdateHealthBar()
-  {
-    float healthPercent = (float)stats.currentHealth / stats.maxHealth;
-    healthSlider.value = healthPercent;
-  }
-
-  public void SpawnDamageNumber(int _dmg)
+  public void SpawnDamageNumber(float _dmg)
   {
     GameObject dmgNr = Instantiate(dmgNrPrefab, ui);
-    dmgNr.GetComponentInChildren<Text>().text = _dmg.ToString();
+    dmgNr.GetComponentInChildren<Text>().text = _dmg.ToString("0");
     Destroy(dmgNr, 2f);
+  }
+
+  public void SpawnHealingNumber(float _heal)
+  {
+    GameObject healNr = Instantiate(healNrPrefab, ui);
+    healNr.GetComponentInChildren<Text>().text = _heal.ToString("0");
+    Destroy(healNr, 2f);
   }
 
   // Update is called once per frame

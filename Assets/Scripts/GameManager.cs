@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
   public GameObject HP_Prefab;
   public GameObject dmgNr_Prefab;
+  public GameObject healNr_Prefab;
 
   public GameObject combatUI;
   public GameObject playerHealthUI;
@@ -24,7 +25,6 @@ public class GameManager : MonoBehaviour
 
   public Text gold_text;
   public Text level_text;
-  public Text xp_text;
 
   void Awake()
   {
@@ -44,11 +44,10 @@ public class GameManager : MonoBehaviour
     ShowLevelUpScreen();
   }
 
-  public void UpdateUI(int _gold, int _lvl, int _xp)
+  public void UpdateUI(int _gold, int _lvl)
   {
     gold_text.text = _gold.ToString();
     level_text.text = _lvl.ToString();
-    xp_text.text = _xp.ToString();
   }
 
   public void ShowLevelUpScreen()
@@ -65,13 +64,14 @@ public class GameManager : MonoBehaviour
   public void LoadNewRoom()
   {
     campSelect.allowMovement = false;
-    SceneManager.LoadSceneAsync(Random.Range(2, 4), LoadSceneMode.Additive);
+    SceneManager.LoadSceneAsync(Random.Range(2, 3), LoadSceneMode.Additive);
     SceneManager.sceneLoaded += OnSceneLoaded;
-    playerStats.currentHealth = playerStats.maxHealth;
   }
 
   private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
   {
+    SceneManager.sceneLoaded -= OnSceneLoaded;
+    Debug.Log("Loaded new Room!");
     Transform spawnpoint = GameObject.Find("Spawnpoint").transform;
     GameManager.instance.playerStats.transform.position = spawnpoint.position;
     campSelect.agent.destination = spawnpoint.position;
@@ -79,15 +79,9 @@ public class GameManager : MonoBehaviour
     currentSceneIndex = scene.buildIndex;
 
     playerStats.Heal(playerStats.maxHealth - playerStats.currentHealth);
+    playerStats.LevelUp();
 
-    if (playerStats.skill_points > 0)
-    {
-      ShowLevelUpScreen();
-    }
-    else
-    {
-      StartCoroutine(ReturnMovement(.6f));
-    }
+    ShowLevelUpScreen();
   }
 
   IEnumerator ReturnMovement(float delay)

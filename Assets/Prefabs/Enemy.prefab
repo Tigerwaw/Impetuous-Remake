@@ -86,8 +86,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpLost_FreezeTime: 1.5
   hpLost_VanishRate: 0.4
+  currentHealthText: {fileID: 0}
   ui: {fileID: 0}
   dmgNrPrefab: {fileID: 0}
+  healNrPrefab: {fileID: 0}
   healthLostSlider: {fileID: 0}
   healthSlider: {fileID: 0}
   stats: {fileID: 0}
@@ -122,16 +124,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   role: 0
-  currentHealth: 120
-  maxHealth: 120
+  currentHealth: 100
+  maxHealth: 100
   currentMana: 0
   maxMana: 100
   manaRegen: 2
-  damage: 10
+  damage: 6
   attackSpeed: 1
   armor: 2
+  maxHealthMod: 0.1
+  maxManaMod: 0.1
+  manaRegenMod: 0.1
+  damageMod: 0.1
+  attackSpeedMod: 0
+  armorMod: 0.1
   gold_reward: 1
-  xp_reward: 1
   camp: {fileID: 0}
 --- !u!114 &5687214104351113307
 MonoBehaviour:

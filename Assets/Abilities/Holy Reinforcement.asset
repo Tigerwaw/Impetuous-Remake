@@ -19,7 +19,8 @@ MonoBehaviour:
   maxLevel: 4
   manaCosts: 1e00000028000000320000003c000000
   cooldowns: 0c0000000a0000000800000006000000
-  damage: 10
+  damage: 0
+  heal: 10
   appliesDebuff: 1
   debuffType: 4
   debuffAmount: 5

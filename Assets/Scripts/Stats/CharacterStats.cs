@@ -18,16 +18,24 @@ public class CharacterStats : MonoBehaviour
 
   [Header("Attributes")]
   // Attributes
-  public int currentHealth;
-  public int maxHealth;
-  public int currentMana;
-  public int maxMana;
-  public int manaRegen;
+  public float currentHealth;
+  public float maxHealth;
+  public float currentMana;
+  public float maxMana;
+  public float manaRegen;
   [Space]
-  public int damage;
-  public int attackSpeed;
-  public int armor;
-  // public int spirit;
+  public float damage;
+  public float attackSpeed;
+  public float armor;
+
+  [Header("Attribute Modifiers")]
+  // Attribute Modifiers
+  public float maxHealthMod;
+  public float maxManaMod;
+  public float manaRegenMod;
+  public float damageMod;
+  public float attackSpeedMod;
+  public float armorMod;
 
 
   public virtual void Start()
@@ -39,8 +47,13 @@ public class CharacterStats : MonoBehaviour
     manaRegenFunction = GetComponent<ManaRegeneration>();
   }
 
-  public void TakeDamage(int _damage, CharacterStats enemyStats)
+  public void TakeDamage(float _damage, CharacterStats enemyStats)
   {
+    if (_damage <= 0)
+    {
+      return;
+    }
+
     // Damage multiplier based on armor value.
     float _multiplier = 100f / (100f + armor);
     float _dmgFloat = _damage;
@@ -56,7 +69,7 @@ public class CharacterStats : MonoBehaviour
 
     // Visual stuff.
     Debug.Log(transform.name + " takes " + _damage + " damage.");
-    healthUI.OnHealthChanged(maxHealth, currentHealth, _damage);
+    healthUI.OnHealthChanged(maxHealth, currentHealth, _damage, false);
     healthUI.SpawnDamageNumber(_damage);
 
 
@@ -85,11 +98,19 @@ public class CharacterStats : MonoBehaviour
   }
 
   // Heal the character.
-  public void Heal(int amount)
+  public void Heal(float amount)
   {
+    if (amount <= 0)
+    {
+      return;
+    }
+
+    Debug.Log(transform.name + " heals " + amount);
     currentHealth += amount;
     currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-    healthUI.UpdateHealthBar();
+    healthUI.OnHealthChanged(maxHealth, currentHealth, amount, true);
+
+    healthUI.SpawnHealingNumber(amount);
   }
 
   public virtual void Die()

@@ -53,7 +53,7 @@ public class PlayerAbilities : MonoBehaviour
       return;
     }
 
-    if (ability_currentCD[ability_ID] > 0)
+    if (ability_currentCD[ability_ID] > 1)
     {
       Debug.Log("Ability on cooldown!");
       return;
@@ -97,7 +97,7 @@ public class PlayerAbilities : MonoBehaviour
     for (int i = 0; i < 3; i++)
     {
       ability_currentCD[i] -= Time.deltaTime;
-      if (ability_currentCD[i] > 0)
+      if (ability_currentCD[i] > 1)
       {
         ability_greyOuts[i].SetActive(true);
         ability_cdTexts[i].gameObject.SetActive(true);

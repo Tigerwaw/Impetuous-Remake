@@ -67,7 +67,8 @@ public class TriggerAbility : MonoBehaviour
 
   public void Selfbuff(Ability _ability, CharacterStats _playerStats)
   {
-    _playerStats.Heal(_ability.damage);
+    _playerStats.TakeDamage(_ability.damage, _playerStats);
+    _playerStats.Heal(_ability.heal);
 
     if (_ability.appliesDebuff)
     {

@@ -6,40 +6,43 @@ public class PlayerStats : CharacterStats
 {
   public int gold;
   public int level;
-  public int xp;
 
-  private int xp_req;
   public int skill_points;
+
+  // Player Specific Attribute Modifiers
+  private int goldMod;
 
   public override void Start()
   {
     base.Start();
 
-    xp_req = 2;
-    GameManager.instance.UpdateUI(gold, level, xp_req - xp);
+    UpdateModifiers();
+
+    GameManager.instance.UpdateUI(gold, level);
   }
 
-  public void GiveExperience(int _exp)
+  private void UpdateModifiers()
   {
-    if (xp + _exp >= xp_req)
-    {
-      int _leftOverXp = (xp + _exp) - xp_req;
-      xp = 0 + _leftOverXp;
-      LevelUp();
-    }
-    else
-    {
-      xp += _exp;
-      GameManager.instance.UpdateUI(gold, level, xp_req - xp);
-    }
+    maxHealth *= (1 + maxHealthMod);
+    maxMana *= (1 + maxManaMod);
+    manaRegen *= (1 + manaRegenMod);
+    damage *= (1 + damageMod);
+    attackSpeed *= (1 + attackSpeedMod);
+    armor *= (1 + armorMod);
+
+    currentHealth = maxHealth;
+
+    /*
+    goldModifier = talents;
+    */
   }
 
-  private void LevelUp()
+  public void LevelUp()
   {
     level += 1;
     skill_points += 1;
-    xp_req = level * 2;
-    GameManager.instance.UpdateUI(gold, level, xp_req - xp);
+    GameManager.instance.UpdateUI(gold, level);
+    Debug.Log("Level up!");
   }
 
   public void GiveGold(int _gold)

@@ -41,6 +41,7 @@ public class Ability : ScriptableObject
   [Space]
 
   public int damage;
+  public int heal;
   public bool appliesDebuff;
   public DebuffType debuffType;
   public int debuffAmount;

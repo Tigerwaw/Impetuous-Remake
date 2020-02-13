@@ -67,19 +67,20 @@
     <Compile Include="Assets\Scripts\Camp.cs" />
     <Compile Include="Assets\Scripts\CampSelection.cs" />
     <Compile Include="Assets\Scripts\CharacterCombat.cs" />
-    <Compile Include="Assets\Scripts\EnemyHealthUI.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\HealthUI.cs" />
+    <Compile Include="Assets\Scripts\HealthUI\EnemyHealthUI.cs" />
+    <Compile Include="Assets\Scripts\HealthUI\HealthUI.cs" />
+    <Compile Include="Assets\Scripts\HealthUI\PlayerHealthUI.cs" />
     <Compile Include="Assets\Scripts\LevelUpPrompt.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\ManaRegeneration.cs" />
     <Compile Include="Assets\Scripts\NextRoomArrow.cs" />
     <Compile Include="Assets\Scripts\PlayerAbilities.cs" />
-    <Compile Include="Assets\Scripts\PlayerHealthUI.cs" />
-    <Compile Include="Assets\Scripts\RoomManager.cs" />
     <Compile Include="Assets\Scripts\Stats\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\Stats\EnemyStats.cs" />
     <Compile Include="Assets\Scripts\Stats\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\Talent\Talent.cs" />
+    <Compile Include="Assets\Scripts\Talent\TalentTree.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Axel/Documents/Impetuous Remake/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

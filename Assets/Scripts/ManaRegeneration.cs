@@ -6,9 +6,8 @@ using UnityEngine.UI;
 public class ManaRegeneration : MonoBehaviour
 {
   private Slider manaBar_UI;
+  private Text manaBar_Text;
   private CharacterStats myStats;
-
-  private float regenTickTime;
 
   private CharacterRole charRole;
 
@@ -16,6 +15,7 @@ public class ManaRegeneration : MonoBehaviour
   {
     myStats = GetComponent<CharacterStats>();
     manaBar_UI = GameManager.instance.manaBar_UI;
+    manaBar_Text = manaBar_UI.GetComponentInChildren<Text>();
 
     charRole = myStats.role;
   }
@@ -25,25 +25,16 @@ public class ManaRegeneration : MonoBehaviour
   {
     switch (charRole)
     {
-      // Mana Regeneration logic for the Predator role.
+      // Predators regenerate mana when dealing damage.
       case CharacterRole.Predator:
         break;
 
-      // Mana Regeneration logic for the Scavenger role.
+      // Scavengers regenerate mana on a successful kill.
       case CharacterRole.Scavenger:
         break;
 
-      // Mana Regeneration logic for the Forager role.
+      // Foragers regenerate mana when taking damage. (Placeholder?)
       case CharacterRole.Forager:
-
-        if (regenTickTime < 0)
-        {
-          myStats.currentMana += myStats.manaRegen;
-          myStats.currentMana = Mathf.Clamp(myStats.currentMana, 0, myStats.maxMana);
-
-          // Reset the timer for the mana regeneration.
-          regenTickTime = 3f;
-        }
         break;
     }
 
@@ -54,14 +45,10 @@ public class ManaRegeneration : MonoBehaviour
   {
     float manaPercent = (float)myStats.currentMana / myStats.maxMana;
     manaBar_UI.value = manaPercent;
+    manaBar_Text.text = myStats.currentMana.ToString();
   }
 
   private void Update()
   {
-    if (charRole == CharacterRole.Forager)
-    {
-      regenTickTime -= Time.deltaTime;
-      Regeneration();
-    }
   }
 }

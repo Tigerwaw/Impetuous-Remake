@@ -24,6 +24,8 @@ public class EnemyHealthUI : HealthUI
         ui = Instantiate(uiPrefab, c.transform).transform;
         healthLostSlider = ui.GetChild(1).GetComponent<Slider>();
         healthSlider = ui.GetChild(2).GetComponent<Slider>();
+        currentHealthText = ui.GetComponentInChildren<Text>();
+        currentHealthText.text = stats.currentHealth.ToString();
         ui.gameObject.SetActive(false);
         break;
       }
